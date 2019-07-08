@@ -154,7 +154,7 @@ class BannerRepository extends EntityRepository
         $em = $this->getEntityManager();
         $em->getConnection()->beginTransaction();
         try {
-            $rank = $Banner->getRank();
+            $rank = $Banner->getSortNo();
             $em->createQueryBuilder()
                 ->update('Plugin\BannerManagement4\Entity\Banner', 'n')
                 ->set('n.sort_no', 'n.sort_no - 1')
