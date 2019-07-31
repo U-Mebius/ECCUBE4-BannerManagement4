@@ -1,0 +1,30 @@
+<script>
+    $(function () {
+        $('.main_visual').slick('unslick')
+        $('.main_visual').html('')
+        {% for Banner in TopBanners %}
+        var $slide = "<div class=\"item slick-slide\"><img src=\"{{ asset('banner/' ~ Banner.file_name, 'save_image') }}\"></div>";
+        $('.main_visual').append($slide)
+        {% endfor %}
+        var slider = $('.main_visual').slick({
+            dots: true,
+            arrows: false,
+            autoplay: true,
+            autoplaySpeed: 7000,
+            pauseOnHover: true,
+            speed: 800,
+            centerMode: true,
+            variableWidth: true,
+            responsive: [
+                {
+                    breakpoint: 1106,
+                    settings: {
+                        centerMode: false,
+                        variableWidth: false,
+                    }
+                },
+            ]
+        });
+        slider.slick('setPosition');
+    })
+</script>
