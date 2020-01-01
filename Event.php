@@ -4,6 +4,7 @@ namespace Plugin\BannerManagement4;
 
 use Eccube\Event\TemplateEvent;
 use Plugin\BannerManagement4\Repository\BannerRepository;
+use SunCat\MobileDetectBundle\DeviceDetector\MobileDetector;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class Event implements EventSubscriberInterface
@@ -15,14 +16,21 @@ class Event implements EventSubscriberInterface
     protected $bannerRepository;
 
     /**
+     * @var MobileDetector
+     */
+    protected $mobileDetector;
+
+    /**
      * コンストラクタ
      *
      * @param BannerRepository $bannerRepository
      */
     public function __construct(
-        BannerRepository $bannerRepository
+        BannerRepository $bannerRepository,
+        MobileDetector $mobileDetector
     ) {
         $this->bannerRepository = $bannerRepository;
+        $this->mobileDetector = $mobileDetector;
     }
 
     /**
@@ -37,7 +45,16 @@ class Event implements EventSubscriberInterface
 
 
     public function onIndexTwig(TemplateEvent $event) {
-        $event->setParameter('TopBanners', $this->bannerRepository->getBanners(1));
+
+        if ($this->mobileDetector->isMobile()) {
+            $Banners = $this->bannerRepository->getBanners(2);
+            if (empty($Banners)) {
+                $Banners = $this->bannerRepository->getBanners(1);
+            }
+        } else {
+            $Banners = $this->bannerRepository->getBanners(1);
+        }
+        $event->setParameter('TopBanners', $Banners);
         $event->addSnippet('@BannerManagement4/index_slider.twig');
     }
 }
