@@ -49,7 +49,7 @@ class BannerType extends AbstractType
             ))
             ->add('alt', TextType::class, array(
                 'label' => 'ALT',
-                'required' => true,
+                'required' => false,
                 'constraints' => array(
                     new Assert\Length(['max' => $this->eccubeConfig['eccube_mtext_len']]),
                 ),

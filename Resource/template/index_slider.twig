@@ -3,7 +3,18 @@
         $('.main_visual').slick('unslick')
         $('.main_visual').html('')
         {% for Banner in TopBanners %}
-        var $slide = "<div class=\"item slick-slide\"><img src=\"{{ asset('banner/' ~ Banner.file_name, 'save_image') }}\"></div>";
+        var $slide = $("<div class='item slick-slide'></div>");
+        var $img = $("<img src='{{ asset('banner/' ~ Banner.file_name, 'save_image') }}'>");
+        $img.attr('alt', '{{ Banner.alt }}')
+        {% if Banner.url %}
+        var $link = $('<a>').attr('href', '{{ Banner.url }}');
+        {% if Banner.link_method %}
+        $link.attr('target', '_blank');
+        {% endif %}
+        $link.html($img).appendTo($slide);
+        {% else %}
+        $img.appendTo($slide);
+        {% endif %}
         $('.main_visual').append($slide)
         {% endfor %}
         var slider = $('.main_visual').slick({
