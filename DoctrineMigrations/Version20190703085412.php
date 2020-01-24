@@ -12,7 +12,7 @@ final class Version20190703085412 extends AbstractMigration
 {
     public function up(Schema $schema) : void
     {
-        $this->addSql('INSERT INTO plg_banner_field (id, name, sort_no, discriminator_type) VALUES (1, "キービジュアル", 1, "bannerfield")');
+        $this->addSql("INSERT INTO plg_banner_field (id, name, sort_no, discriminator_type) VALUES (1, 'キービジュアル', 1, 'bannerfield')");
     }
 
     public function down(Schema $schema) : void
