@@ -56,9 +56,7 @@ class PluginManager extends AbstractPluginManager
      */
     public function disable(array $meta, ContainerInterface $container)
     {
-        $entityManager = $container->get('doctrine')->getManager();
         dump('disable '.self::VERSION);
-        $this->migration($entityManager->getConnection(), $meta['code'], '0');
     }
 
     /**
@@ -69,6 +67,8 @@ class PluginManager extends AbstractPluginManager
      */
     public function uninstall(array $meta, ContainerInterface $container)
     {
+        $entityManager = $container->get('doctrine')->getManager();
         dump('uninstall '.self::VERSION);
+        $this->migration($entityManager->getConnection(), $meta['code'], '0');
     }
 }
