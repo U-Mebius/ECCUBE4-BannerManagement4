@@ -55,6 +55,7 @@ class Event implements EventSubscriberInterface
             $Banners = $this->bannerRepository->getBanners(1);
         }
         $event->setParameter('TopBanners', $Banners);
+        $event->addAsset('@BannerManagement4/index_css.twig');
         $event->addSnippet('@BannerManagement4/index_slider.twig');
     }
 }
