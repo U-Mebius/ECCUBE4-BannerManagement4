@@ -2,7 +2,9 @@
 
 namespace Plugin\BannerManagement4;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Plugin\AbstractPluginManager;
+use Plugin\BannerManagement4\Entity\Config;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -32,6 +34,7 @@ class PluginManager extends AbstractPluginManager
     {
         $entityManager = $container->get('doctrine')->getManager();
         dump('update ' . self::VERSION);
+        $this->createConfigIfNotExists($container);
         $this->migration($entityManager->getConnection(), $meta['code']);
     }
 
@@ -45,7 +48,9 @@ class PluginManager extends AbstractPluginManager
     {
         $entityManager = $container->get('doctrine')->getManager();
         dump('enable '.self::VERSION);
+        $this->createConfigIfNotExists($container);
         $this->migration($entityManager->getConnection(), $meta['code']);
+
     }
 
     /**
@@ -70,5 +75,25 @@ class PluginManager extends AbstractPluginManager
         $entityManager = $container->get('doctrine')->getManager();
         dump('uninstall '.self::VERSION);
         $this->migration($entityManager->getConnection(), $meta['code'], '0');
+    }
+
+    /**
+     * @param ContainerInterface $container
+     * @return Config
+     */
+    private function createConfigIfNotExists(ContainerInterface $container)
+    {
+        /* @var $entityManager EntityManagerInterface */
+        $entityManager = $container->get('doctrine')->getManager();
+        $Config = $entityManager->getRepository(Config::class)->get();
+
+        if (!$Config) {
+            $Config = new Config();
+            $Config->setReplaceAutomatically(true);
+            $entityManager->persist($Config);
+            $entityManager->flush();
+        }
+
+        return $Config;
     }
 }

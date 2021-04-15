@@ -23,11 +23,10 @@
                         <div class="card-header"><span>設定</span></div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-3"><span>名前</span><span
-                                            class="badge badge-primary ml-1">必須</span></div>
+                                <div class="col-3"><span>置き換え</span></div>
                                 <div class="col mb-2">
-                                    {{ form_widget(form.name) }}
-                                    {{ form_errors(form.name) }}
+                                    {{ form_widget(form.replace_automatically) }}
+                                    {{ form_errors(form.replace_automatically) }}
                                 </div>
                             </div>
                         </div>

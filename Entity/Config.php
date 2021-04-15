@@ -24,9 +24,9 @@ class Config
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(type="boolean", options={"default": true})
      */
-    private $name;
+    private $replace_automatically = true;
 
     /**
      * @return int
@@ -39,20 +39,19 @@ class Config
     /**
      * @return string
      */
-    public function getName()
+    public function getReplaceAutomatically()
     {
-        return $this->name;
+        return $this->replace_automatically;
     }
 
     /**
-     * @param string $name
-     *
-     * @return $this;
+     * @param string $replace_automatically
+     * @return Config
      */
-    public function setName($name)
+    public function setReplaceAutomatically($replace_automatically)
     {
-        $this->name = $name;
-
+        $this->replace_automatically = $replace_automatically;
         return $this;
     }
+
 }
