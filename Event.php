@@ -61,13 +61,19 @@ class Event implements EventSubscriberInterface
 
     public function onIndexTwig(TemplateEvent $event)
     {
+        $PcBanners = $this->bannerRepository->getBanners(1);
+        $SpBanners = $this->bannerRepository->getBanners(2);
+
+        $event->setParameter('PcBanners', $PcBanners);
+        $event->setParameter('SpBanners', $SpBanners);
+
         if ($this->mobileDetector->isMobile()) {
-            $Banners = $this->bannerRepository->getBanners(2);
+            $Banners = $SpBanners;
             if (empty($Banners)) {
-                $Banners = $this->bannerRepository->getBanners(1);
+                $Banners = $PcBanners;
             }
         } else {
-            $Banners = $this->bannerRepository->getBanners(1);
+            $Banners = $PcBanners;
         }
 
         if (count($Banners)) {
