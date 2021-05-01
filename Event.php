@@ -75,10 +75,9 @@ class Event implements EventSubscriberInterface
         } else {
             $Banners = $PcBanners;
         }
+        $event->setParameter('TopBanners', $Banners);
 
         if (count($Banners)) {
-            $event->setParameter('TopBanners', $Banners);
-
             $Config = $this->configRepository->get();
             if ($Config && $Config->getReplaceAutomatically()) {
                 $event->addAsset('@BannerManagement4/index_css.twig');
