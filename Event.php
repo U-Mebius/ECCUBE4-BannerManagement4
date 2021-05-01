@@ -1,11 +1,11 @@
 <?php
 
 /*
- * This file is part of EC-CUBE
+ * This file is part of BannerManagement4
  *
- * Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+ * Copyright(c) U-Mebius Inc. All Rights Reserved.
  *
- * http://www.ec-cube.co.jp/
+ * https://umebius.com/
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.

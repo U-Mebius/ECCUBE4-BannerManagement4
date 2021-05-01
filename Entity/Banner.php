@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * This file is part of BannerManagement4
+ *
+ * Copyright(c) U-Mebius Inc. All Rights Reserved.
+ *
+ * https://umebius.com/
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Plugin\BannerManagement4\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -149,7 +160,7 @@ class Banner extends \Eccube\Entity\AbstractEntity
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -172,7 +183,7 @@ class Banner extends \Eccube\Entity\AbstractEntity
     /**
      * Get file_name
      *
-     * @return string 
+     * @return string
      */
     public function getFileName()
     {
@@ -216,7 +227,7 @@ class Banner extends \Eccube\Entity\AbstractEntity
     /**
      * Get alt
      *
-     * @return string 
+     * @return string
      */
     public function getAlt()
     {
@@ -239,7 +250,7 @@ class Banner extends \Eccube\Entity\AbstractEntity
     /**
      * Get create_date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreateDate()
     {
@@ -262,7 +273,7 @@ class Banner extends \Eccube\Entity\AbstractEntity
     /**
      * Get update_date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdateDate()
     {
@@ -310,7 +321,7 @@ class Banner extends \Eccube\Entity\AbstractEntity
     /**
      * Get $sort_no
      *
-     * @return integer 
+     * @return integer
      */
     public function getSortNo()
     {
@@ -333,7 +344,7 @@ class Banner extends \Eccube\Entity\AbstractEntity
     /**
      * Get url
      *
-     * @return string 
+     * @return string
      */
     public function getUrl()
     {
@@ -356,7 +367,7 @@ class Banner extends \Eccube\Entity\AbstractEntity
     /**
      * Get link_method
      *
-     * @return integer 
+     * @return integer
      */
     public function getLinkMethod()
     {
@@ -380,7 +391,7 @@ class Banner extends \Eccube\Entity\AbstractEntity
     /**
      * Get additional_class
      *
-     * @return string 
+     * @return string
      */
     public function getAdditionalClass()
     {
