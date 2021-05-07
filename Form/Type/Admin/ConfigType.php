@@ -30,9 +30,8 @@ class ConfigType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('replace_automatically', CheckboxType::class, [
+            'required' => false,
             'label' => 'キービジュアルを自動で置き換える',
-            'constraints' => [
-            ],
         ]);
     }
 
