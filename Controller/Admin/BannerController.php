@@ -16,13 +16,13 @@ namespace Plugin\BannerManagement4\Controller\Admin;
 use Eccube\Common\Constant;
 use Eccube\Controller\AbstractController;
 use Plugin\BannerManagement4\Form\Type\Admin\BannerType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * バナーのコントローラクラス
