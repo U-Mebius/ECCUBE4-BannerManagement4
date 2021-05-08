@@ -13,12 +13,8 @@
 
 namespace Plugin\BannerManagement4\Controller\Admin;
 
-use Doctrine\ORM\EntityRepository;
-use Eccube\Application;
 use Eccube\Common\Constant;
 use Eccube\Controller\AbstractController;
-use Eccube\Event\EccubeEvents;
-use Eccube\Event\EventArgs;
 use Plugin\BannerManagement4\Form\Type\Admin\BannerType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -39,7 +35,7 @@ class BannerController extends AbstractController
      * @Route("/%eccube_admin_route%/content/banner", name="admin_content_banner")
      * @Template("@BannerManagement4/admin/banner.twig")
      */
-    public function index(Application $app, Request $request)
+    public function index(Request $request)
     {
         $BannerFields = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\BannerField')
 	        ->createQueryBuilder('dt')
@@ -88,7 +84,7 @@ class BannerController extends AbstractController
      * @Template("@BannerManagement4/admin/banner_edit.twig")
      * @throws NotFoundHttpException
      */
-    public function edit(Application $app, Request $request, $id = null)
+    public function edit(Request $request, $id = null)
     {
         if ($id) {
             $Banner = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->find($id);
@@ -176,9 +172,9 @@ class BannerController extends AbstractController
      *     )
      *  @return RedirectResponse
      */
-    public function up(Application $app, Request $request, $id)
+    public function up(Request $request, $id)
     {
-        $this->isTokenValid($app);
+        $this->isTokenValid();
 
         $TargetBanner = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->find($id);
         if (!$TargetBanner) {
@@ -206,9 +202,9 @@ class BannerController extends AbstractController
      *     )
      *  @return RedirectResponse
      */
-    public function down(Application $app, Request $request, $id)
+    public function down(Request $request, $id)
     {
-        $this->isTokenValid($app);
+        $this->isTokenValid();
 
         $TargetBanner = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->find($id);
         if (!$TargetBanner) {
@@ -236,9 +232,9 @@ class BannerController extends AbstractController
      *     )
      *  @return RedirectResponse
      */
-    public function top(Application $app, Request $request, $id)
+    public function top(Request $request, $id)
     {
-        $this->isTokenValid($app);
+        $this->isTokenValid();
 
         $TargetBanner = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->find($id);
         if (!$TargetBanner) {
@@ -267,9 +263,9 @@ class BannerController extends AbstractController
      *     )
      *  @return RedirectResponse
      */
-    public function last(Application $app, Request $request, $id)
+    public function last(Request $request, $id)
     {
-        $this->isTokenValid($app);
+        $this->isTokenValid();
 
         $TargetBanner = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->find($id);
         if (!$TargetBanner) {
@@ -300,9 +296,9 @@ class BannerController extends AbstractController
      * @throws NotFoundHttpException
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function delete(Application $app, Request $request, $id)
+    public function delete(Request $request, $id)
     {
-        $this->isTokenValid($app);
+        $this->isTokenValid();
 
         $TargetBanner = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->find($id);
         if (!$TargetBanner) {
