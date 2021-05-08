@@ -1,0 +1,97 @@
+name: EC-CUBE4 Plugin Test
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+env:
+  PLUGIN_NAME: BannerManagement4
+jobs:
+  phpunit:
+    name: PHPUnit
+    runs-on: [ubuntu-latest]
+    strategy:
+      fail-fast: false
+      matrix:
+        eccube-versions: ['4.1-beta2', '4.0', '4.0.5', '4.0.4', '4.0.3']
+        php-versions: [ 7.1, 7.2, 7.3, 7.4 ]
+        database: [ mysql, pgsql ]
+        exclude:
+          - php-versions: 7.4
+            eccube-versions: '4.0.3'
+        include:
+          - database: mysql
+            database_url: mysql://root:root@127.0.0.1:3306/eccube_db
+            database_server_version: 5
+          - database: pgsql
+            database_url: postgres://postgres:password@127.0.0.1:5432/eccube_db
+            database_server_version: 11
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: false
+          MYSQL_ROOT_USER: root
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: eccube_db
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=20s --health-timeout=10s --health-retries=5
+      postgres:
+        image: postgres:11
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: eccube_db
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 20s --health-timeout 10s --health-retries 5
+
+    steps:
+      - name: Checkout EC-CUBE
+        uses: actions/checkout@v2
+        with:
+          repository: EC-CUBE/ec-cube
+          ref: ${{ matrix.eccube-versions }}
+
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, mysql, pgsql, xml, ctype, iconv, intl, zip, gd, opcache
+          tools: composer:v1
+
+      - name: Cache dependencies installed with composer
+        uses: actions/cache@v2
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+
+      - name: Install Composer dependencies
+        run : |
+          composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
+
+      - name: Checkout Plugin
+        uses: actions/checkout@v2
+        with:
+          path: app/Plugin/${{ env.PLUGIN_NAME }}
+
+      - name: Setup Database
+        run: |
+          bin/console doctrine:schema:create
+          bin/console eccube:fixtures:load
+          bin/console eccube:plugin:install --code $PLUGIN_NAME
+          bin/console cache:clear --no-warmup
+          bin/console eccube:plugin:enable --code $PLUGIN_NAME
+        env:
+          DATABASE_URL: ${{ matrix.database_url }}
+          DATABASE_SERVER_VERSION: ${{ matrix.database_server_version }}
+
+      - name: Run Unit Tests
+        run: |
+          bin/phpunit app/Plugin/$PLUGIN_NAME/Tests
+        env:
+          DATABASE_URL: ${{ matrix.database_url }}
+          DATABASE_SERVER_VERSION: ${{ matrix.database_server_version }}
