@@ -62,6 +62,12 @@ class Banner extends \Eccube\Entity\AbstractEntity
      */
     private $sort_no;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="visible", type="boolean", options={"default":true})
+     */
+    private $visible = true;
 
     /**
      * @var string
@@ -303,7 +309,23 @@ class Banner extends \Eccube\Entity\AbstractEntity
         return $this->Field;
     }
 
+    /**
+     * @return bool
+     */
+    public function isVisible()
+    {
+        return $this->visible;
+    }
 
+    /**
+     * @param int $visible
+     * @return Banner
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+        return $this;
+    }
 
     /**
      * Set sort_no

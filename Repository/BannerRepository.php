@@ -151,9 +151,17 @@ class BannerRepository extends AbstractRepository
      * @param BannerField
      * @return Banner[]
      */
-    public function getBanners($BannerField)
+    public function getBanners($BannerField, $onlyVisible = false)
     {
-        return $this->findBy(array('Field' => $BannerField,), array('sort_no' => 'DESC', 'id'=> 'DESC'));
+        $condition = ['Field' => $BannerField];
+        if ($onlyVisible) {
+            $condition['visible'] = true;
+        }
+
+        return $this->findBy(
+            $condition,
+            array('sort_no' => 'DESC', 'id'=> 'DESC')
+        );
     }
 
     /**

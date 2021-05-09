@@ -13,6 +13,7 @@
 
 namespace Plugin\BannerManagement4\Form\Type\Admin;
 
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Eccube\Common\EccubeConfig;
 use Plugin\BannerManagement4\Entity\Banner;
@@ -99,6 +100,11 @@ class BannerType extends AbstractType
                 'label' => '追加class',
                 'required' => false,
             ))
+            ->add('visible', ChoiceType::class, [
+                'choices' => ['admin.common.show' => true, 'admin.common.hide' => false],
+                'required' => true,
+                'expanded' => false,
+            ])
         ;
 
 	    $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event)  {
