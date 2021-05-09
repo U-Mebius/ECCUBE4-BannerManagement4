@@ -13,7 +13,6 @@
 
 namespace Plugin\BannerManagement4\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use Eccube\Repository\AbstractRepository;
 use Plugin\BannerManagement4\Entity\Banner;
 use Plugin\BannerManagement4\Entity\BannerField;
@@ -27,7 +26,6 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class BannerRepository extends AbstractRepository
 {
-
     /**
      *  constructor.
      *
@@ -35,19 +33,18 @@ class BannerRepository extends AbstractRepository
      */
     public function __construct(
         RegistryInterface $registry
-    )
-    {
+    ) {
         parent::__construct($registry, Banner::class);
-
     }
 
     /**
      * Banner の順位を1上げる.
      *
      * @param  \Plugin\BannerManagement4\Entity\Banner $Banner
+     *
      * @return boolean 成功した場合 true
      */
-    public function up(\Plugin\BannerManagement4\Entity\Banner $Banner)
+    public function up(Banner $Banner)
     {
         $em = $this->getEntityManager();
         $em->getConnection()->beginTransaction();
@@ -59,8 +56,8 @@ class BannerRepository extends AbstractRepository
                 throw new \Exception();
             }
 
-            $Banners[$index] = $Banners[$index-1];
-            $Banners[$index-1] = $Banner;
+            $Banners[$index] = $Banners[$index - 1];
+            $Banners[$index - 1] = $Banner;
 
             $this->updateRank($Banners);
 
@@ -81,14 +78,14 @@ class BannerRepository extends AbstractRepository
      * Banner の順位を1下げる
      *
      * @param  \Plugin\BannerManagement4\Entity\Banner $Banner
+     *
      * @return boolean 成功した場合 true
      */
-    public function down(\Plugin\BannerManagement4\Entity\Banner $Banner)
+    public function down(Banner $Banner)
     {
         $em = $this->getEntityManager();
         $em->getConnection()->beginTransaction();
         try {
-
             $Banners = $this->getBanners($Banner->getField());
 
             $index = array_search($Banner, $Banners, true);
@@ -115,6 +112,7 @@ class BannerRepository extends AbstractRepository
      * Banner を保存する.
      *
      * @param  \Plugin\BannerManagement4\Entity\Banner $Banner
+     *
      * @return boolean 成功した場合 true
      */
     public function save($Banner)
@@ -130,17 +128,15 @@ class BannerRepository extends AbstractRepository
                 if (!$rank) {
                     $rank = 0;
                 }
-                $Banner
-                    ->setSortNo($rank + 1)
-                ;
+                $Banner->setSortNo($rank + 1);
             }
 
             $em->persist($Banner);
             $em->flush();
             $em->getConnection()->commit();
         } catch (\Exception $e) {
-            dump($e->getMessage());exit();
             $em->getConnection()->rollback();
+
             return false;
         }
 
@@ -149,6 +145,7 @@ class BannerRepository extends AbstractRepository
 
     /**
      * @param BannerField
+     *
      * @return Banner[]
      */
     public function getBanners($BannerField, $onlyVisible = false)
@@ -160,7 +157,7 @@ class BannerRepository extends AbstractRepository
 
         return $this->findBy(
             $condition,
-            array('sort_no' => 'DESC', 'id'=> 'DESC')
+            ['sort_no' => 'DESC', 'id' => 'DESC']
         );
     }
 
@@ -171,8 +168,7 @@ class BannerRepository extends AbstractRepository
     {
         $rank = 0;
         $Banners = array_reverse($Banners);
-        foreach ($Banners as $Banner)
-        {
+        foreach ($Banners as $Banner) {
             $Banner->setSortNo($rank++);
         }
     }
@@ -181,6 +177,7 @@ class BannerRepository extends AbstractRepository
      * Banner を削除する.
      *
      * @param  \Plugin\BannerManagement4\Entity\Banner $Banner
+     *
      * @return boolean 成功した場合 true
      */
     public function delete($Banner)
@@ -206,20 +203,21 @@ class BannerRepository extends AbstractRepository
             $em->getConnection()->commit();
         } catch (\Exception $e) {
             $em->getConnection()->rollback();
+
             return false;
         }
 
         return true;
     }
 
-
     /**
      * Banner の順位を一番上へ.
      *
      * @param  \Plugin\BannerManagement4\Entity\Banner $Banner
+     *
      * @return boolean 成功した場合 true
      */
-    public function top(\Plugin\BannerManagement4\Entity\Banner $Banner)
+    public function top(Banner $Banner)
     {
         $em = $this->getEntityManager();
         $em->getConnection()->beginTransaction();
@@ -231,8 +229,8 @@ class BannerRepository extends AbstractRepository
                 throw new \Exception();
             }
 
-            unset($Banners[$index-1]);
-            array_splice($Banners, 0, 0, array($Banner));
+            unset($Banners[$index - 1]);
+            array_splice($Banners, 0, 0, [$Banner]);
 
             $this->updateRank($Banners);
 
@@ -242,21 +240,21 @@ class BannerRepository extends AbstractRepository
             $em->getConnection()->commit();
         } catch (\Exception $e) {
             $em->getConnection()->rollback();
+
             return false;
         }
 
         return true;
     }
 
-
-
     /**
      * Banner の順位を一番下へ.
      *
      * @param  \Plugin\BannerManagement4\Entity\Banner $Banner
+     *
      * @return boolean 成功した場合 true
      */
-    public function last(\Plugin\BannerManagement4\Entity\Banner $Banner)
+    public function last(Banner $Banner)
     {
         $em = $this->getEntityManager();
         $em->getConnection()->beginTransaction();

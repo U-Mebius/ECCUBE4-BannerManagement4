@@ -38,39 +38,39 @@ class BannerController extends AbstractController
     public function index(Request $request)
     {
         $BannerFields = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\BannerField')
-	        ->createQueryBuilder('dt')
-	        ->orderBy('dt.sort_no', 'ASC')
-	        ->getQuery()
-	        ->getResult()
+            ->createQueryBuilder('dt')
+            ->orderBy('dt.sort_no', 'ASC')
+            ->getQuery()
+            ->getResult()
         ;
 
         if ($request->get('field')) {
-	        $BannerField = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\BannerField')
-		        ->find($request->get('field'));
+            $BannerField = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\BannerField')
+                ->find($request->get('field'));
         } else {
-	        $BannerField = $BannerFields[0];
+            $BannerField = $BannerFields[0];
         }
 
-	    $BannerList = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->getBanners($BannerField);
+        $BannerList = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->getBanners($BannerField);
 
         $builder = $this->formFactory->createBuilder();
 
-        $builder->add('BannerField', EntityType::class, array(
+        $builder->add('BannerField', EntityType::class, [
             'class' => 'Plugin\BannerManagement4\Entity\BannerField',
             'property_path' => 'name',
             'placeholder' => null,
             'required' => false,
-	        'data' => $BannerField,
-	        'choices' => $BannerFields,
-        ));
+            'data' => $BannerField,
+            'choices' => $BannerFields,
+        ]);
 
         $form = $builder->getForm();
 
-        return array(
+        return [
             'form' => $form->createView(),
             'BannerList' => $BannerList,
             'BannerField' => $BannerField,
-        );
+        ];
     }
 
     /**
@@ -82,6 +82,7 @@ class BannerController extends AbstractController
      *     requirements={"id" = "\d+"}
      *     )
      * @Template("@BannerManagement4/admin/banner_edit.twig")
+     *
      * @throws NotFoundHttpException
      */
     public function edit(Request $request, $id = null)
@@ -95,23 +96,20 @@ class BannerController extends AbstractController
             $Banner = new \Plugin\BannerManagement4\Entity\Banner();
         }
 
-
-	    if ($request->get('field')) {
-		    $BannerField = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\BannerField')
-			    ->find($request->get('field'));
-		    $Banner->setField($BannerField);
-	    }
+        if ($request->get('field')) {
+            $BannerField = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\BannerField')
+                ->find($request->get('field'));
+            $Banner->setField($BannerField);
+        }
 
         $builder = $this->formFactory
             ->createBuilder(BannerType::class, $Banner);
 
         $form = $builder->getForm();
 
-
         if ('POST' === $request->getMethod()) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-
                 $dir_path = $this->eccubeConfig['eccube_save_image_dir'].'/banner';
                 if (!is_dir($dir_path)) {
                     mkdir($dir_path, 0775);
@@ -130,8 +128,6 @@ class BannerController extends AbstractController
                     $Banner->setFileName($fileName);
                 }
 
-
-
                 $data = $form->getData();
                 if (empty($data['url'])) {
                     $Banner->setLinkMethod(Constant::DISABLED);
@@ -142,16 +138,16 @@ class BannerController extends AbstractController
                 if ($status) {
                     $this->addSuccess('admin.banner.save.complete', 'admin');
 
-                    return $this->redirectToRoute('admin_content_banner', array('field' => $Banner->getField()->getId()));
+                    return $this->redirectToRoute('admin_content_banner', ['field' => $Banner->getField()->getId()]);
                 }
                 $this->addError('admin.common.save_error', 'admin');
             }
         }
 
-        return array(
+        return [
             'form' => $form->createView(),
             'Banner' => $Banner,
-        );
+        ];
     }
 
     /**
@@ -170,6 +166,7 @@ class BannerController extends AbstractController
      *     requirements={"id" = "\d+"},
      *     methods={"PUT"}
      *     )
+     *
      *  @return RedirectResponse
      */
     public function up(Request $request, $id)
@@ -189,7 +186,7 @@ class BannerController extends AbstractController
             $this->addError('admin.common.save_error', 'admin');
         }
 
-        return $this->redirectToRoute('admin_content_banner', array('field' => $TargetBanner->getField()->getId()));
+        return $this->redirectToRoute('admin_content_banner', ['field' => $TargetBanner->getField()->getId()]);
     }
 
     /**
@@ -200,6 +197,7 @@ class BannerController extends AbstractController
      *     requirements={"id" = "\d+"},
      *     methods={"PUT"}
      *     )
+     *
      *  @return RedirectResponse
      */
     public function down(Request $request, $id)
@@ -219,17 +217,18 @@ class BannerController extends AbstractController
             $this->addError('admin.common.save_error', 'admin');
         }
 
-	    return $this->redirectToRoute('admin_content_banner', array('field' => $TargetBanner->getField()->getId()));
+        return $this->redirectToRoute('admin_content_banner', ['field' => $TargetBanner->getField()->getId()]);
     }
-
 
     /**
      * 指定したバナーの表示順を最初にする。
+     *
      * @Route("/%eccube_admin_route%/banner/{id}/top",
      *     name="admin_content_banner_top",
      *     requirements={"id" = "\d+"},
      *     methods={"PUT"}
      *     )
+     *
      *  @return RedirectResponse
      */
     public function top(Request $request, $id)
@@ -249,18 +248,18 @@ class BannerController extends AbstractController
             $this->addError('admin.common.save_error', 'admin');
         }
 
-        return $this->redirectToRoute('admin_content_banner', array('field' => $TargetBanner->getField()->getId()));
+        return $this->redirectToRoute('admin_content_banner', ['field' => $TargetBanner->getField()->getId()]);
     }
-
-
 
     /**
      * 指定したバナーの表示順を最後にする。
+     *
      * @Route("/%eccube_admin_route%/banner/{id}/last",
      *     name="admin_content_banner_last",
      *     requirements={"id" = "\d+"},
      *     methods={"PUT"}
      *     )
+     *
      *  @return RedirectResponse
      */
     public function last(Request $request, $id)
@@ -280,9 +279,8 @@ class BannerController extends AbstractController
             $this->addError('admin.common.save_error', 'admin');
         }
 
-        return $this->redirectToRoute('admin_content_banner', array('field' => $TargetBanner->getField()->getId()));
+        return $this->redirectToRoute('admin_content_banner', ['field' => $TargetBanner->getField()->getId()]);
     }
-
 
     /**
      * 指定したバナーを削除する。
@@ -294,6 +292,7 @@ class BannerController extends AbstractController
      *     )
      *
      * @throws NotFoundHttpException
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Request $request, $id)
@@ -313,6 +312,6 @@ class BannerController extends AbstractController
             $this->addSuccess('admin.banner.delete.error', 'admin');
         }
 
-	    return $this->redirectToRoute('admin_content_banner', array('field' => $TargetBanner->getField()->getId()));
+        return $this->redirectToRoute('admin_content_banner', ['field' => $TargetBanner->getField()->getId()]);
     }
 }

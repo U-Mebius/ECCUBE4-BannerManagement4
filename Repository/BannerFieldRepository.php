@@ -13,7 +13,6 @@
 
 namespace Plugin\BannerManagement4\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use Eccube\Repository\AbstractRepository;
 use Plugin\BannerManagement4\Entity\BannerField;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -33,9 +32,7 @@ class BannerFieldRepository extends AbstractRepository
      */
     public function __construct(
         RegistryInterface $registry
-    )
-    {
+    ) {
         parent::__construct($registry, BannerField::class);
-
     }
 }
