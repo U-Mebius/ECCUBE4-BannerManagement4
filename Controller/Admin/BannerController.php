@@ -15,12 +15,15 @@ namespace Plugin\BannerManagement4\Controller\Admin;
 
 use Eccube\Common\Constant;
 use Eccube\Controller\AbstractController;
+use Plugin\BannerManagement4\Entity\Banner;
 use Plugin\BannerManagement4\Form\Type\Admin\BannerType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -313,5 +316,32 @@ class BannerController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_content_banner', ['field' => $TargetBanner->getField()->getId()]);
+    }
+
+    /**
+     * @Route("/%eccube_admin_route%/banner/sort_no/move",
+     *     name="admin_content_banner_sort_no_move",
+     *     methods={"POST"}
+     *     )
+     */
+    public function moveSortNo(Request $request)
+    {
+        if (!$request->isXmlHttpRequest()) {
+            throw new BadRequestHttpException();
+        }
+
+        if ($this->isTokenValid()) {
+            $sortNos = $request->request->all();
+            foreach ($sortNos as $bannerId => $sortNo) {
+                /* @var $Banner Banner */
+                $Banner = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')
+                    ->find($bannerId);
+                $Banner->setSortNo($sortNo);
+                $this->entityManager->persist($Banner);
+            }
+            $this->entityManager->flush();
+
+            return new Response('Successful');
+        }
     }
 }
