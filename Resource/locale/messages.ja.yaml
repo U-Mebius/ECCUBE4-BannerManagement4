@@ -4,3 +4,11 @@ admin.banner.save.complete: バナーを保存しました。
 admin.banner.save.error: バナーを保存できませんでした。
 admin.banner.delete.complete: バナーを削除しました。
 admin.banner.delete.error: バナーを削除できませんでした。
+
+# バナー一覧画面
+admin.banner.banner_list.title: キービジュアル管理
+admin.banner.banner_list.subtitle: コンテンツ管理
+
+# バナー編集画面
+admin.banner.banner_edit.title: キービジュアル管理
+admin.banner.banner_edit.subtitle: コンテンツ管理
