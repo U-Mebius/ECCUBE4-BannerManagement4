@@ -168,7 +168,7 @@ $(function() {
                                     <td id="banner_list_box__title--{{ Banner.id }}">{{ Banner.alt }}</td>
                                     <td id="banner_list_box__title--{{ Banner.id }}">
                                         {% if Banner.file_name %}
-                                            <img src="{{ asset('banner/' ~ Banner.file_name, 'save_image') }}" width="200">
+                                            <img src="{{ asset('banner/' ~ Banner.file_name, 'save_image') }}" style="max-width: 200px;max-height: 200px;">
                                         {% endif %}
                                     </td>
                                     <td>
