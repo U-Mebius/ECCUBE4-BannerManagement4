@@ -19,5 +19,5 @@
 #### 置き換え後
 
 ```
-{{ include('@BannerManagement4/slides.twig', {}, ignore_missing = true) }}
+{{ include('@BannerManagement42/slides.twig', {}, ignore_missing = true) }}
 ```

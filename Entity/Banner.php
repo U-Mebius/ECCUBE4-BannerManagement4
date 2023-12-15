@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of BannerManagement4
+ * This file is part of BannerManagement42
  *
  * Copyright(c) U-Mebius Inc. All Rights Reserved.
  *
@@ -11,7 +11,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\BannerManagement4\Entity;
+namespace Plugin\BannerManagement42\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -23,7 +23,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discriminator_type", type="string", length=255)
  * @ORM\HasLifecycleCallbacks()
- * @ORM\Entity(repositoryClass="Plugin\BannerManagement4\Repository\BannerRepository")
+ * @ORM\Entity(repositoryClass="Plugin\BannerManagement42\Repository\BannerRepository")
  */
 class Banner extends \Eccube\Entity\AbstractEntity
 {
@@ -120,8 +120,8 @@ class Banner extends \Eccube\Entity\AbstractEntity
     private $update_date;
 
     /**
-     * @var \Plugin\BannerManagement4\Entity\BannerField
-     * @ORM\ManyToOne(targetEntity="\Plugin\BannerManagement4\Entity\BannerField")
+     * @var \Plugin\BannerManagement42\Entity\BannerField
+     * @ORM\ManyToOne(targetEntity="\Plugin\BannerManagement42\Entity\BannerField")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="field_id", referencedColumnName="id")
      * })
@@ -289,10 +289,10 @@ class Banner extends \Eccube\Entity\AbstractEntity
     /**
      * Set Field
      *
-     * @param \Plugin\BannerManagement4\Entity\BannerField $field
+     * @param \Plugin\BannerManagement42\Entity\BannerField $field
      * @return Banner
      */
-    public function setField(\Plugin\BannerManagement4\Entity\BannerField $field = null)
+    public function setField(\Plugin\BannerManagement42\Entity\BannerField $field = null)
     {
         $this->Field = $field;
 
@@ -302,7 +302,7 @@ class Banner extends \Eccube\Entity\AbstractEntity
     /**
      * Get Field
      *
-     * @return \Plugin\BannerManagement4\Entity\BannerField
+     * @return \Plugin\BannerManagement42\Entity\BannerField
      */
     public function getField()
     {

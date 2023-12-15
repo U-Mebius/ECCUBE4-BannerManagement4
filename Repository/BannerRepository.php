@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of BannerManagement4
+ * This file is part of BannerManagement42
  *
  * Copyright(c) U-Mebius Inc. All Rights Reserved.
  *
@@ -11,12 +11,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\BannerManagement4\Repository;
+namespace Plugin\BannerManagement42\Repository;
 
 use Eccube\Repository\AbstractRepository;
-use Plugin\BannerManagement4\Entity\Banner;
-use Plugin\BannerManagement4\Entity\BannerField;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Plugin\BannerManagement42\Entity\Banner;
+use Plugin\BannerManagement42\Entity\BannerField;
+use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 
 /**
  * BannerRepository
@@ -40,7 +40,7 @@ class BannerRepository extends AbstractRepository
     /**
      * Banner の順位を1上げる.
      *
-     * @param  \Plugin\BannerManagement4\Entity\Banner $Banner
+     * @param  \Plugin\BannerManagement42\Entity\Banner $Banner
      *
      * @return boolean 成功した場合 true
      */
@@ -77,7 +77,7 @@ class BannerRepository extends AbstractRepository
     /**
      * Banner の順位を1下げる
      *
-     * @param  \Plugin\BannerManagement4\Entity\Banner $Banner
+     * @param  \Plugin\BannerManagement42\Entity\Banner $Banner
      *
      * @return boolean 成功した場合 true
      */
@@ -111,7 +111,7 @@ class BannerRepository extends AbstractRepository
     /**
      * Banner を保存する.
      *
-     * @param  \Plugin\BannerManagement4\Entity\Banner $Banner
+     * @param  \Plugin\BannerManagement42\Entity\Banner $Banner
      *
      * @return boolean 成功した場合 true
      */
@@ -176,7 +176,7 @@ class BannerRepository extends AbstractRepository
     /**
      * Banner を削除する.
      *
-     * @param  \Plugin\BannerManagement4\Entity\Banner $Banner
+     * @param  \Plugin\BannerManagement42\Entity\Banner $Banner
      *
      * @return boolean 成功した場合 true
      */
@@ -187,7 +187,7 @@ class BannerRepository extends AbstractRepository
         try {
             $rank = $Banner->getSortNo();
             $em->createQueryBuilder()
-                ->update('Plugin\BannerManagement4\Entity\Banner', 'n')
+                ->update('Plugin\BannerManagement42\Entity\Banner', 'n')
                 ->set('n.sort_no', 'n.sort_no - 1')
                 ->where('n.sort_no > :sort_no')->setParameter('sort_no', $rank)
                 ->getQuery()
@@ -213,7 +213,7 @@ class BannerRepository extends AbstractRepository
     /**
      * Banner の順位を一番上へ.
      *
-     * @param  \Plugin\BannerManagement4\Entity\Banner $Banner
+     * @param  \Plugin\BannerManagement42\Entity\Banner $Banner
      *
      * @return boolean 成功した場合 true
      */
@@ -250,7 +250,7 @@ class BannerRepository extends AbstractRepository
     /**
      * Banner の順位を一番下へ.
      *
-     * @param  \Plugin\BannerManagement4\Entity\Banner $Banner
+     * @param  \Plugin\BannerManagement42\Entity\Banner $Banner
      *
      * @return boolean 成功した場合 true
      */

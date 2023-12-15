@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of BannerManagement4
+ * This file is part of BannerManagement42
  *
  * Copyright(c) U-Mebius Inc. All Rights Reserved.
  *
@@ -11,13 +11,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\BannerManagement4\Tests\Admin\Web;
+namespace Plugin\BannerManagement42\Tests\Admin\Web;
 
 use Eccube\Common\Constant;
 use Eccube\Tests\Web\Admin\AbstractAdminWebTestCase;
-use Plugin\BannerManagement4\Entity\Banner;
-use Plugin\BannerManagement4\Repository\BannerFieldRepository;
-use Plugin\BannerManagement4\Repository\BannerRepository;
+use Plugin\BannerManagement42\Entity\Banner;
+use Plugin\BannerManagement42\Repository\BannerFieldRepository;
+use Plugin\BannerManagement42\Repository\BannerRepository;
 
 /**
  * Class BannerControllerTest.
@@ -34,7 +34,7 @@ class BannerControllerTest extends AbstractAdminWebTestCase
      */
     private $bannerFieldRepository;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -48,7 +48,7 @@ class BannerControllerTest extends AbstractAdminWebTestCase
         $this->bannerFieldRepository = $container->get(BannerFieldRepository::class);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
     }

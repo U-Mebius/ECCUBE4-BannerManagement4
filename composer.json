@@ -1,12 +1,12 @@
 {
-  "name": "ec-cube/bannermanagement4",
-  "version": "1.1.0",
-  "description": "キービジュアル管理 for EC-CUBE4",
+  "name": "ec-cube/bannermanagement42",
+  "version": "1.2.0",
+  "description": "キービジュアル管理 for EC-CUBE4(4.2系)",
   "type": "eccube-plugin",
   "require": {
     "ec-cube/plugin-installer": "~0.0.6 || ^2.0"
   },
   "extra": {
-    "code": "BannerManagement4"
+    "code": "BannerManagement42"
   }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of BannerManagement4
+ * This file is part of BannerManagement42
  *
  * Copyright(c) U-Mebius Inc. All Rights Reserved.
  *
@@ -11,10 +11,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\BannerManagement4\Form\Type\Admin;
+namespace Plugin\BannerManagement42\Form\Type\Admin;
 
 use Eccube\Common\EccubeConfig;
-use Plugin\BannerManagement4\Entity\Banner;
+use Plugin\BannerManagement42\Entity\Banner;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -78,7 +78,7 @@ class BannerType extends AbstractType
             ]))
 
             ->add('Field', EntityType::class, [
-                'class' => 'Plugin\BannerManagement4\Entity\BannerField',
+                'class' => 'Plugin\BannerManagement42\Entity\BannerField',
                 'label' => '位置',
                 'required' => true,
                 'constraints' => [
@@ -121,7 +121,7 @@ class BannerType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Plugin\BannerManagement4\Entity\Banner',
+            'data_class' => 'Plugin\BannerManagement42\Entity\Banner',
         ]);
     }
 

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of BannerManagement4
+ * This file is part of BannerManagement42
  *
  * Copyright(c) U-Mebius Inc. All Rights Reserved.
  *
@@ -11,9 +11,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\BannerManagement4\Form\Type\Admin;
+namespace Plugin\BannerManagement42\Form\Type\Admin;
 
-use Plugin\BannerManagement4\Entity\Config;
+use Plugin\BannerManagement42\Entity\Config;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

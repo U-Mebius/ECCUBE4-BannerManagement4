@@ -1,4 +1,4 @@
-{# This file is part of BannerManagement4
+{# This file is part of BannerManagement42
 
 Copyright(c) U-Mebius Inc. All Rights Reserved.
 
@@ -176,7 +176,7 @@ $(function() {
                                            href="{{ url('admin_content_banner_up', {id: Banner.id}) }}"
                                            data-method="put" {{ csrf_token_for_anchor() }}
                                            data-confirm="false"
-                                           data-toggle="tooltip" data-placement="top" title="{{ 'admin.common.up'|trans }}">
+                                           data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'admin.common.up'|trans }}">
                                             <i class="fa fa-arrow-up fa-lg text-secondary"></i>
                                         </a>
                                     </td>
@@ -185,14 +185,14 @@ $(function() {
                                            data-method="put" {{ csrf_token_for_anchor() }}
                                            data-confirm="false"
                                            href="{{ url('admin_content_banner_down', {id: Banner.id}) }}"
-                                           data-toggle="tooltip" data-placement="top" title="{{ 'admin.common.down'|trans }}">
+                                           data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'admin.common.down'|trans }}">
                                             <i class="fa fa-arrow-down fa-lg text-secondary"></i>
                                         </a>
                                     </td>
                                     <td>
                                         <a class="btn btn-ec-actionIcon mr-3 "
-                                           data-toggle="tooltip"
-                                           data-placement="top"
+                                           data-bs-toggle="tooltip"
+                                           data-bs-placement="top"
                                            href="{{ url('admin_content_banner_edit', {id: Banner.id}) }}"
                                            >
                                             <i class="fa fa-pencil fa-lg text-secondary"></i>
@@ -200,7 +200,7 @@ $(function() {
                                     </td>
                                     <td>
                                         <a class="btn btn-ec-actionIcon mr-3"
-                                           data-toggle="modal" data-target="#DeleteModal"
+                                           data-bs-toggle="modal" data-bs-target="#DeleteModal"
                                            data-url="{{ url('admin_content_banner_delete', {id: Banner.id}) }}"
                                            data-message="このバナーを削除してもよろしいですか？">
                                             <i class="fa fa-close fa-lg text-secondary"></i>
@@ -224,15 +224,15 @@ $(function() {
                                         <h5 class="modal-title font-weight-bold">
                                             {{ 'admin.common.delete_modal__title'|trans }}
                                         </h5>
-                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body text-left">
-                                        <p class="text-left modal-message"><!-- jsでメッセージを挿入 --></p>
+                                    <div class="modal-body text-start">
+                                        <p class="text-start modal-message"><!-- jsでメッセージを挿入 --></p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-ec-sub" type="button" data-dismiss="modal">
+                                        <button class="btn btn-ec-sub" type="button" data-bs-dismiss="modal">
                                             {{ 'admin.common.cancel'|trans }}
                                         </button>
                                         <a class="btn btn-ec-delete" href="#" {{ csrf_token_for_anchor() }}

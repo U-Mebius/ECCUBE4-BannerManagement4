@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of BannerManagement4
+ * This file is part of BannerManagement42
  *
  * Copyright(c) U-Mebius Inc. All Rights Reserved.
  *
@@ -11,7 +11,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\BannerManagement4;
+namespace Plugin\BannerManagement42;
 
 use Eccube\Common\EccubeNav;
 

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of BannerManagement4
+ * This file is part of BannerManagement42
  *
  * Copyright(c) U-Mebius Inc. All Rights Reserved.
  *
@@ -11,12 +11,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\BannerManagement4\Controller\Admin;
+namespace Plugin\BannerManagement42\Controller\Admin;
 
 use Eccube\Common\Constant;
 use Eccube\Controller\AbstractController;
-use Plugin\BannerManagement4\Entity\Banner;
-use Plugin\BannerManagement4\Form\Type\Admin\BannerType;
+use Plugin\BannerManagement42\Entity\Banner;
+use Plugin\BannerManagement42\Form\Type\Admin\BannerType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -36,11 +36,11 @@ class BannerController extends AbstractController
      * バナー一覧を表示する。
      *
      * @Route("/%eccube_admin_route%/content/banner", name="admin_content_banner")
-     * @Template("@BannerManagement4/admin/banner.twig")
+     * @Template("@BannerManagement42/admin/banner.twig")
      */
     public function index(Request $request)
     {
-        $BannerFields = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\BannerField')
+        $BannerFields = $this->entityManager->getRepository('Plugin\BannerManagement42\Entity\BannerField')
             ->createQueryBuilder('dt')
             ->orderBy('dt.sort_no', 'ASC')
             ->getQuery()
@@ -48,18 +48,18 @@ class BannerController extends AbstractController
         ;
 
         if ($request->get('field')) {
-            $BannerField = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\BannerField')
+            $BannerField = $this->entityManager->getRepository('Plugin\BannerManagement42\Entity\BannerField')
                 ->find($request->get('field'));
         } else {
             $BannerField = $BannerFields[0];
         }
 
-        $BannerList = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->getBanners($BannerField);
+        $BannerList = $this->entityManager->getRepository('Plugin\BannerManagement42\Entity\Banner')->getBanners($BannerField);
 
         $builder = $this->formFactory->createBuilder();
 
         $builder->add('BannerField', EntityType::class, [
-            'class' => 'Plugin\BannerManagement4\Entity\BannerField',
+            'class' => 'Plugin\BannerManagement42\Entity\BannerField',
             'property_path' => 'name',
             'placeholder' => null,
             'required' => false,
@@ -84,23 +84,23 @@ class BannerController extends AbstractController
      *     name="admin_content_banner_edit",
      *     requirements={"id" = "\d+"}
      *     )
-     * @Template("@BannerManagement4/admin/banner_edit.twig")
+     * @Template("@BannerManagement42/admin/banner_edit.twig")
      *
      * @throws NotFoundHttpException
      */
     public function edit(Request $request, $id = null)
     {
         if ($id) {
-            $Banner = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->find($id);
+            $Banner = $this->entityManager->getRepository('Plugin\BannerManagement42\Entity\Banner')->find($id);
             if (!$Banner) {
                 throw new NotFoundHttpException();
             }
         } else {
-            $Banner = new \Plugin\BannerManagement4\Entity\Banner();
+            $Banner = new \Plugin\BannerManagement42\Entity\Banner();
         }
 
         if ($request->get('field')) {
-            $BannerField = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\BannerField')
+            $BannerField = $this->entityManager->getRepository('Plugin\BannerManagement42\Entity\BannerField')
                 ->find($request->get('field'));
             $Banner->setField($BannerField);
         }
@@ -136,7 +136,7 @@ class BannerController extends AbstractController
                     $Banner->setLinkMethod(Constant::DISABLED);
                 }
 
-                $status = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->save($Banner);
+                $status = $this->entityManager->getRepository('Plugin\BannerManagement42\Entity\Banner')->save($Banner);
 
                 if ($status) {
                     $this->addSuccess('admin.banner.save.complete', 'admin');
@@ -176,12 +176,12 @@ class BannerController extends AbstractController
     {
         $this->isTokenValid();
 
-        $TargetBanner = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->find($id);
+        $TargetBanner = $this->entityManager->getRepository('Plugin\BannerManagement42\Entity\Banner')->find($id);
         if (!$TargetBanner) {
             throw new NotFoundHttpException();
         }
 
-        $status = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->up($TargetBanner);
+        $status = $this->entityManager->getRepository('Plugin\BannerManagement42\Entity\Banner')->up($TargetBanner);
 
         if ($status) {
             $this->addSuccess('admin.common.save_complete', 'admin');
@@ -207,12 +207,12 @@ class BannerController extends AbstractController
     {
         $this->isTokenValid();
 
-        $TargetBanner = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->find($id);
+        $TargetBanner = $this->entityManager->getRepository('Plugin\BannerManagement42\Entity\Banner')->find($id);
         if (!$TargetBanner) {
             throw new NotFoundHttpException();
         }
 
-        $status = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->down($TargetBanner);
+        $status = $this->entityManager->getRepository('Plugin\BannerManagement42\Entity\Banner')->down($TargetBanner);
 
         if ($status) {
             $this->addSuccess('admin.common.save_complete', 'admin');
@@ -238,12 +238,12 @@ class BannerController extends AbstractController
     {
         $this->isTokenValid();
 
-        $TargetBanner = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->find($id);
+        $TargetBanner = $this->entityManager->getRepository('Plugin\BannerManagement42\Entity\Banner')->find($id);
         if (!$TargetBanner) {
             throw new NotFoundHttpException();
         }
 
-        $status = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->top($TargetBanner);
+        $status = $this->entityManager->getRepository('Plugin\BannerManagement42\Entity\Banner')->top($TargetBanner);
 
         if ($status) {
             $this->addSuccess('admin.common.save_complete', 'admin');
@@ -269,12 +269,12 @@ class BannerController extends AbstractController
     {
         $this->isTokenValid();
 
-        $TargetBanner = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->find($id);
+        $TargetBanner = $this->entityManager->getRepository('Plugin\BannerManagement42\Entity\Banner')->find($id);
         if (!$TargetBanner) {
             throw new NotFoundHttpException();
         }
 
-        $status = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->last($TargetBanner);
+        $status = $this->entityManager->getRepository('Plugin\BannerManagement42\Entity\Banner')->last($TargetBanner);
 
         if ($status) {
             $this->addSuccess('admin.common.save_complete', 'admin');
@@ -302,12 +302,12 @@ class BannerController extends AbstractController
     {
         $this->isTokenValid();
 
-        $TargetBanner = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->find($id);
+        $TargetBanner = $this->entityManager->getRepository('Plugin\BannerManagement42\Entity\Banner')->find($id);
         if (!$TargetBanner) {
             throw new NotFoundHttpException();
         }
 
-        $status = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')->delete($TargetBanner);
+        $status = $this->entityManager->getRepository('Plugin\BannerManagement42\Entity\Banner')->delete($TargetBanner);
 
         if ($status) {
             $this->addSuccess('admin.banner.delete.complete', 'admin');
@@ -334,7 +334,7 @@ class BannerController extends AbstractController
             $sortNos = $request->request->all();
             foreach ($sortNos as $bannerId => $sortNo) {
                 /* @var $Banner Banner */
-                $Banner = $this->entityManager->getRepository('Plugin\BannerManagement4\Entity\Banner')
+                $Banner = $this->entityManager->getRepository('Plugin\BannerManagement42\Entity\Banner')
                     ->find($bannerId);
                 $Banner->setSortNo($sortNo);
                 $this->entityManager->persist($Banner);

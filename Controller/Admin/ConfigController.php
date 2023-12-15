@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of BannerManagement4
+ * This file is part of BannerManagement42
  *
  * Copyright(c) U-Mebius Inc. All Rights Reserved.
  *
@@ -11,11 +11,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\BannerManagement4\Controller\Admin;
+namespace Plugin\BannerManagement42\Controller\Admin;
 
 use Eccube\Controller\AbstractController;
-use Plugin\BannerManagement4\Form\Type\Admin\ConfigType;
-use Plugin\BannerManagement4\Repository\ConfigRepository;
+use Plugin\BannerManagement42\Form\Type\Admin\ConfigType;
+use Plugin\BannerManagement42\Repository\ConfigRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,8 +38,8 @@ class ConfigController extends AbstractController
     }
 
     /**
-     * @Route("/%eccube_admin_route%/banner_management4/config", name="banner_management4_admin_config")
-     * @Template("@BannerManagement4/admin/config.twig")
+     * @Route("/%eccube_admin_route%/banner_management42/config", name="banner_management42_admin_config")
+     * @Template("@BannerManagement42/admin/config.twig")
      */
     public function index(Request $request)
     {
@@ -53,7 +53,7 @@ class ConfigController extends AbstractController
             $this->entityManager->flush($Config);
             $this->addSuccess('登録しました。', 'admin');
 
-            return $this->redirectToRoute('banner_management4_admin_config');
+            return $this->redirectToRoute('banner_management42_admin_config');
         }
 
         return [

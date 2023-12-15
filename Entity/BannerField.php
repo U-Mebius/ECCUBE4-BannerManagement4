@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of BannerManagement4
+ * This file is part of BannerManagement42
  *
  * Copyright(c) U-Mebius Inc. All Rights Reserved.
  *
@@ -11,7 +11,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\BannerManagement4\Entity;
+namespace Plugin\BannerManagement42\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,7 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discriminator_type", type="string", length=255)
  * @ORM\HasLifecycleCallbacks()
- * @ORM\Entity(repositoryClass="Plugin\BannerManagement4\Repository\BannerFieldRepository")
+ * @ORM\Entity(repositoryClass="Plugin\BannerManagement42\Repository\BannerFieldRepository")
  * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  */
 class BannerField extends \Eccube\Entity\Master\AbstractMasterEntity

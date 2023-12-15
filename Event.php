@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of BannerManagement4
+ * This file is part of BannerManagement42
  *
  * Copyright(c) U-Mebius Inc. All Rights Reserved.
  *
@@ -11,12 +11,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\BannerManagement4;
+namespace Plugin\BannerManagement42;
 
+use Detection\MobileDetect;
 use Eccube\Event\TemplateEvent;
-use Plugin\BannerManagement4\Repository\BannerRepository;
-use Plugin\BannerManagement4\Repository\ConfigRepository;
-use SunCat\MobileDetectBundle\DeviceDetector\MobileDetector;
+use Plugin\BannerManagement42\Repository\BannerRepository;
+use Plugin\BannerManagement42\Repository\ConfigRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class Event implements EventSubscriberInterface
@@ -27,7 +27,7 @@ class Event implements EventSubscriberInterface
     protected $bannerRepository;
 
     /**
-     * @var MobileDetector
+     * @var MobileDetect
      */
     protected $mobileDetector;
 
@@ -42,7 +42,7 @@ class Event implements EventSubscriberInterface
     public function __construct(
         BannerRepository $bannerRepository,
         ConfigRepository $configRepository,
-        MobileDetector $mobileDetector
+        MobileDetect $mobileDetector
     ) {
         $this->bannerRepository = $bannerRepository;
         $this->configRepository = $configRepository;
@@ -80,8 +80,8 @@ class Event implements EventSubscriberInterface
         if (count($Banners)) {
             $Config = $this->configRepository->get();
             if ($Config && $Config->getReplaceAutomatically()) {
-                $event->addAsset('@BannerManagement4/index_css.twig');
-                $event->addSnippet('@BannerManagement4/index_slider.twig');
+                $event->addAsset('@BannerManagement42/index_css.twig');
+                $event->addSnippet('@BannerManagement42/index_slider.twig');
             }
         }
     }

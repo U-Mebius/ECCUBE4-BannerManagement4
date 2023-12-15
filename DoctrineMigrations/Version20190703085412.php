@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of BannerManagement4
+ * This file is part of BannerManagement42
  *
  * Copyright(c) U-Mebius Inc. All Rights Reserved.
  *
@@ -11,7 +11,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\BannerManagement4\DoctrineMigrations;
+namespace Plugin\BannerManagement42\DoctrineMigrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
@@ -24,7 +24,7 @@ final class Version20190703085412 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         $stmt = $this->connection->executeQuery('SELECT COUNT(id) FROM plg_banner_field');
-        $cnt = $stmt->fetchColumn();
+        $cnt = $stmt->fetchOne();
         if (!$cnt) {
             $this->addSql("INSERT INTO plg_banner_field (id, name, sort_no, discriminator_type) VALUES (1, 'キービジュアル', 1, 'bannerfield')");
             $this->addSql("INSERT INTO plg_banner_field (id, name, sort_no, discriminator_type) VALUES (2, 'キービジュアル(SP)', 2, 'bannerfield')");

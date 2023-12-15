@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of BannerManagement4
+ * This file is part of BannerManagement42
  *
  * Copyright(c) U-Mebius Inc. All Rights Reserved.
  *
@@ -11,15 +11,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\BannerManagement4\Entity;
+namespace Plugin\BannerManagement42\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Config
  *
- * @ORM\Table(name="plg_banner_management4_config")
- * @ORM\Entity(repositoryClass="Plugin\BannerManagement4\Repository\ConfigRepository")
+ * @ORM\Table(name="plg_banner_management42_config")
+ * @ORM\Entity(repositoryClass="Plugin\BannerManagement42\Repository\ConfigRepository")
  */
 class Config
 {

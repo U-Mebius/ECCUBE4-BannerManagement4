@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of BannerManagement4
+ * This file is part of BannerManagement42
  *
  * Copyright(c) U-Mebius Inc. All Rights Reserved.
  *
@@ -11,11 +11,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\BannerManagement4;
+namespace Plugin\BannerManagement42;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Plugin\AbstractPluginManager;
-use Plugin\BannerManagement4\Entity\Config;
+use Plugin\BannerManagement42\Entity\Config;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
