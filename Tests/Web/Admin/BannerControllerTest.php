@@ -66,7 +66,7 @@ class BannerControllerTest extends AbstractAdminWebTestCase
     {
         $this->deleteAllRows(['plg_banner']);
         $crawler = $this->client->request('GET', $this->generateUrl('admin_content_banner'));
-        $this->assertContains('0件が該当しました', $crawler->html());
+        $this->assertStringContainsString('0件が該当しました', $crawler->html());
     }
 
     public function testListCount()
@@ -77,7 +77,7 @@ class BannerControllerTest extends AbstractAdminWebTestCase
         }
 
         $crawler = $this->client->request('GET', $this->generateUrl('admin_content_banner'));
-        $this->assertContains('3件が該当しました', $crawler->html());
+        $this->assertStringContainsString('3件が該当しました', $crawler->html());
     }
 
     /**
