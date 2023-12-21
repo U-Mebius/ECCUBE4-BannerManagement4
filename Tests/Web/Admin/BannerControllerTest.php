@@ -16,6 +16,7 @@ namespace Plugin\BannerManagement42\Tests\Admin\Web;
 use Eccube\Common\Constant;
 use Eccube\Tests\Web\Admin\AbstractAdminWebTestCase;
 use Plugin\BannerManagement42\Entity\Banner;
+use Plugin\BannerManagement42\Entity\BannerField;
 use Plugin\BannerManagement42\Repository\BannerFieldRepository;
 use Plugin\BannerManagement42\Repository\BannerRepository;
 
@@ -38,14 +39,8 @@ class BannerControllerTest extends AbstractAdminWebTestCase
     {
         parent::setUp();
 
-        if (\version_compare(Constant::VERSION, '4.1-beta', '>=')) {
-            $container = self::$container;
-        } else {
-            $container = $this->container;
-        }
-
-        $this->bannerRepository = $container->get(BannerRepository::class);
-        $this->bannerFieldRepository = $container->get(BannerFieldRepository::class);
+        $this->bannerRepository = $this->entityManager->getRepository(Banner::class);
+        $this->bannerFieldRepository = $this->entityManager->getRepository(BannerField::class);
     }
 
     public function tearDown(): void
