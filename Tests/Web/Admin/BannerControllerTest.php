@@ -11,7 +11,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\BannerManagement42\Tests\Admin\Web;
+namespace Plugin\BannerManagement42\Tests\Web\Admin;
 
 use Eccube\Common\Constant;
 use Eccube\Tests\Web\Admin\AbstractAdminWebTestCase;
